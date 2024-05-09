@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Unisagrado - Cursos de Tecnologia Superior com Excelência',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -19,22 +20,51 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
   final List<Course> courses = [
     Course(
       name: "Ciência da Computação",
       description: "Explore the depths of algorithms, data structures and software engineering.",
       content:
-          "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software. Nele, os estudantes aprendem a desenvolver algoritmos complexos e a utilizar diversas estruturas de dados para processamento eficiente de informações. Além disso, o curso enfatiza a engenharia de software, preparando os alunos para projetar, desenvolver, testar e manter softwares de qualidade. Com um equilíbrio entre teoria e prática, o curso prepara os futuros profissionais para liderar inovações tecnológicas em um mundo cada vez mais dependente da computação.",
+      "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software...",
       url: "https://unisagrado.edu.br/graduacao/ciencia-da-computacao",
     ),
     Course(
       name: "Jogos Digitais",
       description: "Design and develop engaging and innovative digital games.",
-      content: "O curso de Jogos Digitais prepara os estudantes para projetar e desenvolver jogos digitais envolventes e inovadores. Focando em design de jogos, programação, design gráfico, animação e sonorização, o programa oferece uma formação abrangente nos aspectos técnicos e criativos da criação de jogos. Os alunos aprendem a integrar narrativas envolventes e personagens memoráveis, enquanto exploram novas tecnologias e técnicas de gameplay. Com uma forte ênfase em projetos práticos, o curso visa desenvolver habilidades e uma mentalidade de inovação, preparando os graduados para uma carreira dinâmica na indústria de jogos digitais.",
+      content: "O curso de Jogos Digitais prepara os estudantes para projetar e desenvolver jogos digitais envolventes e inovadores...",
       url: "https://unisagrado.edu.br/graduacao/jogos-digitais",
     ),
   ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget _getPageWidget(int index) {
+    switch (index) {
+      case 0:
+        return ListView.builder(
+          itemCount: courses.length,
+          itemBuilder: (context, index) {
+            return CourseCard(course: courses[index]);
+          },
+        );
+      case 1:
+        return InfoPage();
+      default:
+        return const Text('Page not found');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +72,30 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Unisagrado - Cursos de Tecnologia'),
       ),
-      body: ListView.builder(
-        itemCount: courses.length,
-        itemBuilder: (context, index) {
-          return CourseCard(course: courses[index]);
-        },
+      body: _getPageWidget(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Cursos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'Informações',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
+    );
+  }
+}
+
+class InfoPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Rocky'),
     );
   }
 }
@@ -66,7 +114,7 @@ class CourseCard extends StatelessWidget {
         leading: Container(
           width: 100,
           height: 56,
-          color: Colors.grey,
+          color: Colors.red,
         ),
         title: Text(course.name),
         subtitle: Text(course.description),
@@ -74,7 +122,8 @@ class CourseCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CourseDetailPage(course: course)),
+              builder: (context) => CourseDetailPage(course: course),
+            ),
           );
         },
       ),
@@ -91,23 +140,23 @@ class CourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(course.name),
+        /* title: Text(course.name), */
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 8),
+            Text(course.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            Text(course.content, style: TextStyle(fontSize: 16)),
+            SizedBox(height: 20),
             Container(
               width: double.infinity,
               height: 200,
               color: Colors.grey,
             ),
-            SizedBox(height: 8),
-            Text(course.name,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text(course.content, style: TextStyle(fontSize: 16)),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _launchURL(Uri.parse(course.url)),
