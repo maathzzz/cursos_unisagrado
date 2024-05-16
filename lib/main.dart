@@ -31,16 +31,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Course> courses = [
     Course(
       name: "Ciência da Computação",
-      description: "Explore the depths of algorithms, data structures and software engineering.",
+      description: "Explore o mundo dos algoritmos, estruturas de dados e engenharia de software.",
       content:
-      "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software...",
+      "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software",
       url: "https://unisagrado.edu.br/graduacao/ciencia-da-computacao",
+      degree: "Bacharelado",
+      modality: "Presencial",
+      duration: "4 anos"
     ),
     Course(
       name: "Jogos Digitais",
       description: "Design and develop engaging and innovative digital games.",
       content: "O curso de Jogos Digitais prepara os estudantes para projetar e desenvolver jogos digitais envolventes e inovadores...",
       url: "https://unisagrado.edu.br/graduacao/jogos-digitais",
+      degree: "Técnologo",
+      modality: "Presencial",
+      duration: "2 anos"
     ),
   ];
 
@@ -94,8 +100,71 @@ class _MyHomePageState extends State<MyHomePage> {
 class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Rocky'),
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            Text("Disciplina: Desenvolvimento de Software", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            SizedBox(height: 10),
+            Text("Professor: Prof. Dr. Élvio Gilberto da Silva", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            SizedBox(height: 10),
+            Divider(
+              height: 20,
+              thickness: 1,
+              indent: 30,
+              endIndent: 30,
+              color: Colors.grey,
+            ),
+            Text("Integrantes:", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+            SizedBox(height: 10),
+            Text("Lucas Antonio Pires de Souza", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            Text("Matheus de Amorim Favero", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            SizedBox(height: 10),
+            Divider(
+              height: 20,
+              thickness: 1,
+              indent: 30,
+              endIndent: 30,
+              color: Colors.grey,
+            ),
+            SizedBox(height: 15),
+            Text("Desenvolvimento:", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+            SizedBox(height: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 300,
+                  height: 150,
+                  color: Colors.grey,
+                ),
+                SizedBox(height: 15,),
+                Container(
+                  width: 300,
+                  height: 150,
+                  color: Colors.grey,
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            Text("Apoio:", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+            SizedBox(height: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 300,
+                  height: 150,
+                  color: Colors.grey,
+                ),
+                SizedBox(height: 30,),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -144,29 +213,108 @@ class CourseDetailPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 8),
-            Text(course.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text(course.content, style: TextStyle(fontSize: 16)),
-            SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              height: 200,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _launchURL(Uri.parse(course.url)),
-              child: Text('Veja mais sobre o curso'),
-            ),
-          ],
+        child: SingleChildScrollView( // Wrap the Column with SingleChildScrollView
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8),
+              Center(
+                child: Text(course.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              ),
+              const Divider(
+                height: 20,
+                thickness: 1,
+                indent: 0,
+                endIndent: 0,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 8),
+              Text(course.content, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 20),
+              Center(
+                child: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.red.shade700,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.school, size: 25, color: Colors.white),
+                          Text(course.degree, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                    const VerticalDivider(
+                      width: 20,
+                      thickness: 2,
+                      indent: 20,
+                      endIndent: 0,
+                      color: Colors.grey,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.red.shade700,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.person, size: 25, color: Colors.white),
+                          Text(course.modality, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                    const VerticalDivider(
+                      width: 20,
+                      thickness: 2,
+                      indent: 20,
+                      endIndent: 0,
+                      color: Colors.grey,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.red.shade700,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.calendar_month, size: 25, color: Colors.white),
+                          Text(course.duration, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                height: 200,
+                color: Colors.grey,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => _launchURL(Uri.parse(course.url)),
+                child: Text('Veja mais sobre o curso'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
 
   void _launchURL(Uri url) async {
     if (await canLaunchUrl(url)) {
@@ -175,13 +323,23 @@ class CourseDetailPage extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
-}
 
 class Course {
   final String name;
   final String description;
   final String content;
   final String url;
+  final String degree;
+  final String modality;
+  final String duration;
 
-  Course({required this.name, required this.description, required this.content, required this.url});
+  Course({
+    required this.name,
+    required this.description,
+    required this.content,
+    required this.url,
+    required this.degree,
+    required this.modality,
+    required this.duration,
+  });
 }
