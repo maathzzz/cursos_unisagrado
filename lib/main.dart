@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,12 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Course(
       name: "Ciência da Computação",
       description: "Explore o mundo dos algoritmos, estruturas de dados e engenharia de software.",
-      content:
-      "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software",
+      content: "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software",
       url: "https://unisagrado.edu.br/graduacao/ciencia-da-computacao",
       degree: "Bacharelado",
       modality: "Presencial",
-      duration: "4 anos"
+      duration: "4 anos",
+      firstCarousel: [
+        'assets/labcs1.jpg',
+        'assets/labcs3.jpg',
+        'assets/labcs4.jpg',
+      ],
     ),
     Course(
       name: "Jogos Digitais",
@@ -46,9 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
       url: "https://unisagrado.edu.br/graduacao/jogos-digitais",
       degree: "Técnologo",
       modality: "Presencial",
-      duration: "2 anos"
+      duration: "2 anos",
+      firstCarousel: [
+        'assets/labcs1.jpg',
+        'assets/labcs3.jpg',
+        'assets/labcs4.jpg',
+      ],
     ),
   ];
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -141,11 +152,6 @@ class InfoPage extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 SizedBox(height: 15,),
-                Container(
-                  width: 300,
-                  height: 150,
-                  color: Colors.grey,
-                ),
               ],
             ),
             SizedBox(height: 15),
@@ -209,7 +215,7 @@ class CourseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /* title: Text(course.name), */
+        title: Text(course.name),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -233,74 +239,35 @@ class CourseDetailPage extends StatelessWidget {
               const SizedBox(height: 20),
               Center(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 100,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red.shade700,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.school, size: 25, color: Colors.white),
-                          Text(course.degree, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
-                        ],
-                      ),
-                    ),
-                    const VerticalDivider(
-                      width: 20,
-                      thickness: 2,
-                      indent: 20,
-                      endIndent: 0,
-                      color: Colors.grey,
-                    ),
-                    Container(
-                      width: 100,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red.shade700,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.person, size: 25, color: Colors.white),
-                          Text(course.modality, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
-                        ],
-                      ),
-                    ),
-                    const VerticalDivider(
-                      width: 20,
-                      thickness: 2,
-                      indent: 20,
-                      endIndent: 0,
-                      color: Colors.grey,
-                    ),
-                    Container(
-                      width: 100,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red.shade700,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.calendar_month, size: 25, color: Colors.white),
-                          Text(course.duration, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
-                        ],
-                      ),
-                    ),
+                    _buildInfoCard(Icons.school, course.degree),
+                    const SizedBox(width: 16),
+                    _buildInfoCard(Icons.person, course.modality),
+                    const SizedBox(width: 16),
+                    _buildInfoCard(Icons.calendar_month, course.duration),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                width: double.infinity,
-                height: 200,
-                color: Colors.grey,
+              CarouselSlider(
+                options: CarouselOptions(height: 200.0, autoPlay: true),
+                items: course.firstCarousel.map((imagePath) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(imagePath),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
               SizedBox(height: 20),
               ElevatedButton(
@@ -310,6 +277,24 @@ class CourseDetailPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(IconData icon, String text) {
+    return Container(
+      width: 100,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.red.shade700,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 25, color: Colors.white),
+          Text(text, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+        ],
       ),
     );
   }
@@ -332,6 +317,7 @@ class Course {
   final String degree;
   final String modality;
   final String duration;
+  final List<String> firstCarousel;
 
   Course({
     required this.name,
@@ -341,5 +327,7 @@ class Course {
     required this.degree,
     required this.modality,
     required this.duration,
+    required this.firstCarousel,
   });
 }
+

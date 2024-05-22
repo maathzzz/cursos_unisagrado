@@ -1,5 +1,5 @@
-name: flutter_application_1
-description: "A new Flutter project."
+name: unisagrado_tech
+description: "Unisagrado Tech - Cursos de Tecnologia"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.0.20
+  carousel_slider: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -53,6 +54,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/labcs1.jpg
+    - assets/labcs2.jpg
+    - assets/labcs3.jpg
+    - assets/labcs4.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
