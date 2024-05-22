@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Unisagrado - Cursos de Tecnologia Superior com Excelência',
+      title: 'Unisagrado Tech',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Unisagrado - Cursos de Tecnologia'),
+        title: Text('Unisagrado Tech'),
       ),
       body: _getPageWidget(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -149,7 +149,12 @@ class InfoPage extends StatelessWidget {
                 Container(
                   width: 300,
                   height: 150,
-                  color: Colors.grey,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/logo_cc.jpg'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 15,),
               ],
@@ -163,7 +168,12 @@ class InfoPage extends StatelessWidget {
                 Container(
                   width: 300,
                   height: 150,
-                  color: Colors.grey,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/logo_ce.jpg'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 30,),
               ],

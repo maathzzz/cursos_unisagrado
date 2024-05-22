@@ -59,6 +59,8 @@ flutter:
     - assets/labcs2.jpg
     - assets/labcs3.jpg
     - assets/labcs4.jpg
+    - assets/logo_cc.jpg
+    - assets/logo_ce.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
