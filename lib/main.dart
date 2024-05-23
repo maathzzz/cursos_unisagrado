@@ -31,23 +31,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Course> courses = [
     Course(
-      name: "Ciência da Computação",
-      description: "Explore o mundo dos algoritmos, estruturas de dados e engenharia de software.",
-      content: "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software",
-      url: "https://unisagrado.edu.br/graduacao/ciencia-da-computacao",
-      degree: "Bacharelado",
-      modality: "Presencial",
-      duration: "4 anos",
-      firstCarousel: [
-        'assets/labcs1.jpg',
-        'assets/labcs3.jpg',
-        'assets/labcs4.jpg',
-      ],
+        name: "Ciência da Computação",
+        description: "Explore o mundo dos algoritmos, estruturas de dados e engenharia de software",
+        content: "O curso de Ciência da Computação é ideal para quem deseja aprofundar-se em algoritmos, estruturas de dados e engenharia de software",
+        url: "https://unisagrado.edu.br/graduacao/ciencia-da-computacao",
+        degree: "Bacharelado",
+        modality: "Presencial",
+        duration: "4 anos",
+        firstCarousel: [
+          'assets/labcs1.jpg',
+          'assets/labcs3.jpg',
+          'assets/labcs4.jpg',
+        ],
+        about: "A área de atuação de um profissional de Ciência da Computação abrange a Tecnologia da Informação, que é um mercado em crescimento na atualidade. O cientista da computação poderá atuar em projetos computacionais de hardware e software: projeto de infraestrutura de tecnologia, gerenciamento e bancos de dados, análise de sistemas, segurança da informação e muito mais."
     ),
     Course(
       name: "Jogos Digitais",
-      description: "Design and develop engaging and innovative digital games.",
-      content: "O curso de Jogos Digitais prepara os estudantes para projetar e desenvolver jogos digitais envolventes e inovadores...",
+      description: "Projete e desenvolva jogos digitais envolventes e inovadores",
+      content: "O curso de Jogos Digitais prepara os estudantes para projetar e desenvolver jogos digitais envolventes e inovadores",
       url: "https://unisagrado.edu.br/graduacao/jogos-digitais",
       degree: "Técnologo",
       modality: "Presencial",
@@ -57,9 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
         'assets/labcs3.jpg',
         'assets/labcs4.jpg',
       ],
+      about: "A principal área de atuação do profissional de Jogos Digitais é o entretenimento digital, em que é responsável pelo desenvolvimento de produtos tais como: jogos educativos, de marketing, de treinamento empresarial, na saúde, científicos, militares, dentre outros. Além disso, pode desempenhar funções como roteirista, artista gráfico, designer de áudio, testador de jogos, programador e redator. As possibilidades são inúmeras!",
     ),
   ];
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -102,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.red,
         onTap: _onItemTapped,
       ),
     );
@@ -119,7 +121,7 @@ class InfoPage extends StatelessWidget {
             SizedBox(height: 20),
             Text("Disciplina: Desenvolvimento de Software", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             SizedBox(height: 10),
-            Text("Professor: Prof. Dr. Élvio Gilberto da Silva", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+            Text("Professor: Prof. Dr. Elvio Gilberto da Silva", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             SizedBox(height: 10),
             Divider(
               height: 20,
@@ -132,7 +134,7 @@ class InfoPage extends StatelessWidget {
             SizedBox(height: 10),
             Text("Lucas Antonio Pires de Souza", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
             Text("Matheus de Amorim Favero", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Divider(
               height: 20,
               thickness: 1,
@@ -193,14 +195,10 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 2,
       margin: EdgeInsets.all(8),
       child: ListTile(
-        leading: Container(
-          width: 100,
-          height: 56,
-          color: Colors.red,
-        ),
+        leading: Icon(Icons.school, size: 30, color: Colors.red),
         title: Text(course.name),
         subtitle: Text(course.description),
         onTap: () {
@@ -229,7 +227,7 @@ class CourseDetailPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: SingleChildScrollView( // Wrap the Column with SingleChildScrollView
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -269,6 +267,7 @@ class CourseDetailPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: AssetImage(imagePath),
                             fit: BoxFit.cover,
@@ -280,9 +279,73 @@ class CourseDetailPage extends StatelessWidget {
                 }).toList(),
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => _launchURL(Uri.parse(course.url)),
-                child: Text('Veja mais sobre o curso'),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade700,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Sobre o Curso', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.white)),
+                    SizedBox(height: 8),
+                    Text(course.about, textAlign: TextAlign.justify, style: const TextStyle(fontSize: 16, color: Colors.white)),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade700,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Benefícios do Curso', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+                          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
+                          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade50,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Oportunidades de Carreira', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+                          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
+                          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () => _launchURL(Uri.parse(course.url)),
+                  child: Text('Veja mais sobre o curso'),
+                ),
               ),
             ],
           ),
@@ -310,14 +373,13 @@ class CourseDetailPage extends StatelessWidget {
   }
 }
 
-
-  void _launchURL(Uri url) async {
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+void _launchURL(Uri url) async {
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
   }
+}
 
 class Course {
   final String name;
@@ -328,6 +390,7 @@ class Course {
   final String modality;
   final String duration;
   final List<String> firstCarousel;
+  final String about;
 
   Course({
     required this.name,
@@ -338,6 +401,6 @@ class Course {
     required this.modality,
     required this.duration,
     required this.firstCarousel,
+    required this.about,
   });
 }
-
