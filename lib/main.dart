@@ -43,7 +43,17 @@ class _MyHomePageState extends State<MyHomePage> {
           'assets/labcs3.jpg',
           'assets/labcs4.jpg',
         ],
-        about: "A área de atuação de um profissional de Ciência da Computação abrange a Tecnologia da Informação, que é um mercado em crescimento na atualidade. O cientista da computação poderá atuar em projetos computacionais de hardware e software: projeto de infraestrutura de tecnologia, gerenciamento e bancos de dados, análise de sistemas, segurança da informação e muito mais."
+        imgSection1: [
+          'assets/labcs4.jpg',
+          'assets/labcs5.jpg',
+        ],
+        imgSection2: [
+          'assets/labcs6.jpg',
+          'assets/labcs7.jpg',
+          'assets/labcs8.jpg',
+        ],
+        about: "A área de atuação de um profissional de Ciência da Computação abrange a Tecnologia da Informação, que é um mercado em crescimento na atualidade. O cientista da computação poderá atuar em projetos computacionais de hardware e software: projeto de infraestrutura de tecnologia, gerenciamento e bancos de dados, análise de sistemas, segurança da informação e muito mais.",
+        benefits: "De olho no futuro e acompanhando as tendências na indústria da informação, pode-se dizer que o mercado de atuação está cada vez mais amplo e exigente, sendo a formação profissional cada vez mais essencial. Grande parte das empresas públicas e privadas utiliza algum tipo de tecnologia para desenvolver suas atividades, necessitando de criação, programação, análise, suporte e inovação."
     ),
     Course(
       name: "Jogos Digitais",
@@ -54,11 +64,21 @@ class _MyHomePageState extends State<MyHomePage> {
       modality: "Presencial",
       duration: "2 anos",
       firstCarousel: [
-        'assets/labcs1.jpg',
-        'assets/labcs3.jpg',
-        'assets/labcs4.jpg',
+        'assets/labjd1.jpg',
+        'assets/labjd2.jpg',
+        'assets/labjd3.jpg',
+      ],
+      imgSection1: [
+        'assets/labjd4.jpg',
+        'assets/labjd5.jpg',
+      ],
+      imgSection2: [
+        'assets/labjd6.jpg',
+        'assets/labcs7.jpg',
+        'assets/labcs8.jpg',
       ],
       about: "A principal área de atuação do profissional de Jogos Digitais é o entretenimento digital, em que é responsável pelo desenvolvimento de produtos tais como: jogos educativos, de marketing, de treinamento empresarial, na saúde, científicos, militares, dentre outros. Além disso, pode desempenhar funções como roteirista, artista gráfico, designer de áudio, testador de jogos, programador e redator. As possibilidades são inúmeras!",
+      benefits: "O Brasil é o principal mercado de jogos da América Latina e está entre os maiores do mundo. A demanda por profissionais qualificados para o desenvolvimento, gestão e inovação no setor de entretenimento é crescente. Além disso, setores como educação, treinamento profissional e marketing estão cada vez mais interessados nas habilidades do tecnólogo em Jogos Digitais. Profissionais atualizados com as novidades do mercado, criativos e inovadores têm um futuro promissor."
     ),
   ];
 
@@ -278,7 +298,7 @@ class CourseDetailPage extends StatelessWidget {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -294,28 +314,23 @@ class CourseDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.red.shade700,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Benefícios do Curso', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 8),
-                    Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-                          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
-                          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+              const SizedBox(height: 20),
+              const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: course.imgSection1.map((imagePath) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ],
-                ),
+                    height: 200,
+                  );
+                }).toList(),
               ),
               SizedBox(height: 20),
               Container(
@@ -327,26 +342,43 @@ class CourseDetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Oportunidades de Carreira', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 8),
+                    Text('Benefícios do Curso', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
                     Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-                          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-                          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
-                          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      course.benefits,
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+              Text('Conheça o ambiente:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: course.imgSection2.map((imagePath) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    height: 200,
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () => _launchURL(Uri.parse(course.url)),
-                  child: Text('Veja mais sobre o curso'),
+                  child: Text('Veja mais sobre o curso e a grade de matérias', style: TextStyle(color: Colors.red)),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -391,6 +423,10 @@ class Course {
   final String duration;
   final List<String> firstCarousel;
   final String about;
+  final List<String> imgSection1;
+  final List<String> imgSection2;
+  final String benefits;
+
 
   Course({
     required this.name,
@@ -402,5 +438,8 @@ class Course {
     required this.duration,
     required this.firstCarousel,
     required this.about,
+    required this.imgSection1,
+    required this.imgSection2,
+    required this.benefits,
   });
 }
