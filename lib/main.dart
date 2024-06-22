@@ -375,7 +375,7 @@ class CourseDetailPage extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () => _launchURL(Uri.parse(course.url)),
-                  child: Text('Veja mais sobre o curso e a grade de matérias', style: TextStyle(color: Colors.red)),
+                  child: Text('Veja mais sobre o curso', style: TextStyle(color: Colors.red)),
                 ),
               ),
               const SizedBox(height: 20),
